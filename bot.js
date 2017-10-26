@@ -7,9 +7,10 @@ bot.on('ready', () => {
   console.log(`Ready to kick people :)))`);
 });
 
-bot.on('guildMemberAdd', member =>{
-    if((Date.now() - member.user.createdTimestamp) < 86400000){
-        member.kick("Account was too fresh");
+bot.on('guildMemberAdd', member => {
+    if ((Date.now() - member.user.createdTimestamp) < 86400000) {
+        if (!member.guild.me.hasPermission('KICK_MEMBERS') return console.log(`Insufficient permissions in guild ${member.guild.name}.');
+        member.kick("Account was too fresh").catch(console.error);
     }
 });
 
